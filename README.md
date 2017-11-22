@@ -1,3 +1,6 @@
+Hello i am noyes@jomgegar.com
+Simple Script Iptables here.
+
 # iptables-vpn-portforward
 Simple iptables script for vpn port forwarding. This script will make easy for you to configure your desire port without typing long command line.
 This script will work by using bash.
