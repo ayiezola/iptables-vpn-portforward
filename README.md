@@ -9,6 +9,7 @@ $ bash iptablesvpn_portforward.sh
 # OR
 
 $ chmod +x iptablesvpn_portforward.sh
+
 $ ./iptablesvpn_portforward.sh
 
 Requirements:
