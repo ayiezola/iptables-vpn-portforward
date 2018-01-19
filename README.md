@@ -17,3 +17,7 @@ Requirements:
 2) Your VPN Client IP Address. Example : 10.8.0.2 (The port will travel to this IP Address)
 3) Your VPS IP (Automatically detect)
 4) Your desire port. Example: 1337
+
+# Changelog
+
+1.1 : Add delete features
