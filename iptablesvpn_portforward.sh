@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "====================================="
 echo "Iptables script by noyes@jomgegar.com"
-echo "version 1.1 2017"
+echo "         version 1.1 2018            "
 echo "====================================="
 iptables="/sbin/iptables"
 iptables_save="/sbin/iptables-save"
