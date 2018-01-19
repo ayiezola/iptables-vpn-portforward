@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "====================================="
 echo "Iptables script by noyes@jomgegar.com"
-echo "version 1.0 2017"
+echo "version 1.1 2017"
 echo "====================================="
 iptables="/sbin/iptables"
 iptables_save="/sbin/iptables-save"
@@ -11,8 +11,9 @@ echo "	What do you want to do? :"
 echo "	1) Backup current iptables?"
 echo "	2) Reset iptables?"
 echo " 	3) Add new iptables rules?"
-echo "	4) Exit"
-read -p "Select an option [1-4]: " option
+echo "	4) Delete some rules?"
+echo "	5) Exit"
+read -p "Select an option [1-5]: " option
 case $option in
 	1)
 	echo "Do you want to backup your current iptables?"
@@ -58,6 +59,33 @@ case $option in
 
 	$iptables_save
 	;;
-	4) 
+	4)
+	#echo "This script will delete your IP Tables Rules "
+	iptables-save
+	echo "============================================"
+	echo "PLEASE NOTE YOUR PORT, INTERFACE and VPN IP "
+	echo "============================================"
+	#iptables-save
+	#user input
+	echo "Enter port to remove : "
+	read port
+	echo "Enter VPN IP related to PORT : "
+	read vpn_ip
+	echo "Your interface example : eth0 :"
+	read interface
+	#tcp remove
+	iptables -t nat -D PREROUTING -d $IP -p tcp -m tcp --dport $port -j DNAT --to-destination $vpn_ip
+	iptables -D INPUT -p tcp -m tcp --dport $port -j ACCEPT
+	iptables -D FORWARD -d $vpn_ip -i $interface -p tcp -m tcp --dport $port -j ACCEPT
+	#udp remove
+	iptables -t nat -D PREROUTING -d $IP -p udp -m udp --dport $port -j DNAT --to-destination $vpn_ip
+	iptables -D INPUT -p udp -m udp --dport $port -j ACCEPT
+	iptables -D FORWARD -d $vpn_ip -i $interface -p udp -m udp --dport $port -j ACCEPT
+
+	echo "========================="
+	echo "YOUR LATEST IPTABLES IS :"
+	iptables-save
+	;;
+	5) 
 	echo "Done"
 esac
