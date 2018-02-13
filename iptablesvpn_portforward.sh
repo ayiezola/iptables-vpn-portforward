@@ -37,6 +37,8 @@ case $option in
 	echo "Enter your port to listen"
 	read port
 	echo "Your VPS IP is :" $IP
+	echo "Please put your interface"
+	read interface
 	echo "Please put your VPN IP Address :"
 	read vpn_ip
 	echo ""
@@ -44,6 +46,7 @@ case $option in
 	echo "Your settings : "
 	echo "Your VPS IP : " $IP
 	echo "Your VPN IP : " $vpn_ip
+	echo "Your interface : " $interface
 	echo "Your listening port is : " $port
 	echo "Your iptables backup file is /etc/iptables.bak"
 	echo "=============================================="
@@ -52,8 +55,8 @@ case $option in
 
 	$iptables -A INPUT -p tcp --dport $port -j ACCEPT
 	$iptables -A INPUT -p udp --dport $port -j ACCEPT
-	$iptables -A FORWARD -d $vpn_ip -i eth0 -p tcp -m tcp --dport $port -j ACCEPT
-	$iptables -A FORWARD -d $vpn_ip -i eth0 -p udp -m udp --dport $port -j ACCEPT
+	$iptables -A FORWARD -d $vpn_ip -i $interface -p tcp -m tcp --dport $port -j ACCEPT
+	$iptables -A FORWARD -d $vpn_ip -i $interface -p udp -m udp --dport $port -j ACCEPT
 	$iptables -t nat -A PREROUTING -d $IP -p tcp -m tcp --dport $port -j DNAT --to-destination $vpn_ip
 	$iptables -t nat -A PREROUTING -d $IP -p udp -m udp --dport $port -j DNAT --to-destination $vpn_ip
 
