@@ -37,7 +37,7 @@ case $option in
 	echo "Enter your port to listen"
 	read port
 	echo "Your VPS IP is :" $IP
-	echo "Please put your interface"
+	echo "Please put your interface [ens0, eth0] : "
 	read interface
 	echo "Please put your VPN IP Address :"
 	read vpn_ip
